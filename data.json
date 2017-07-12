@@ -1,0 +1,17 @@
+[{
+	"description" : "feed the dog",
+	"due_date" : "7/5/17",
+	"ID" : 1,
+},
+
+{
+	"description" : "wash the dishes",
+	"due_date" : "7/6/17",
+	"ID" : 2,
+},
+
+{
+	"description" : "take out the trash",
+	"due_date" : "7/7/17",
+	"ID" : 3,
+}]
