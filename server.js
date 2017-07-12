@@ -17,7 +17,12 @@ app.listen(process.env.PORT || 5000, function(err) {
 });
 
 
-
+// app.listen(port, function(err) {  
+//  if (err) {
+//    return console.log('something bad happened', err)
+//  }
+//  console.log(`Magic is happening on ${port}`)
+// });
 
 
 //Connect to Mongo
@@ -54,22 +59,22 @@ Todo.find({}, function(err,todo){
 
 //GET Todos from MongoDB 
 
-app.get('/get-allTodos', function(request, response){ 
-	response.send(Todo);
-	console.log('this route is being hit',allTodos);
-});
+// app.get('/get-allTodos', function(request, response){ 
+// 	response.send(Todo);
+// 	console.log('this route is being hit',allTodos);
+// });
 
 app.get('/get-allTodos', function(request, response){
-	response.send(Todo);
+console.log('this route is being hit')
 
-	Todo.find({}, function(err, todo){
-		console.log('we are here');
-		if(err){
-			console.log('ERROR:',err)
-		}else{
-			response.send(todo);
-		}
-	});
+    Todo.find({}, function(err, todo){
+        console.log('we are here');
+        if(err){
+            console.log('ERROR:',err)
+        }else{
+            response.send(todo);
+        }
+    });
 
 });
 
