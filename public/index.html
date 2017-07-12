@@ -99,7 +99,8 @@
 <script type="text/javascript">
 
 var url="https://calm-ocean-58797.herokuapp.com/"
-	
+
+function getAll(){	
 	$.get('/get-allTodos', function(data){
 		var element="";
 		for(var i = 0; i < data.length; i++){
@@ -109,7 +110,7 @@ var url="https://calm-ocean-58797.herokuapp.com/"
 		$('#to-dos').append(element);
 		console.log(element);
 	})
-
+};
 
 
 
@@ -159,6 +160,10 @@ $('#myBtn').click(function(){
 				$.post('/post-newTodos', newTodo, function (err, res){
 					if (err) console.log(err);
 					else console.log('sending to server js!');
+
+          if(res){
+            getAll();
+          }
 				});
 	});
 	
