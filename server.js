@@ -117,5 +117,5 @@ app.post('/post-newTodos', function(request, response){
  });
 
  //define folder that will be used for static assets 
-// app.use(express.static('public'));
+app.use(express.static('public'));
 
