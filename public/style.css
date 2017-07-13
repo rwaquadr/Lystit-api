@@ -34,7 +34,6 @@ body{
 
 
 #sortable1, #sortable2 {
-    border: 1px solid #eee;
     width: 50%;
     min-height: 20px;
     list-style-type: none;

@@ -35,7 +35,6 @@ mongoose.connect('mongodb://heroku_qgcjr9k0:dk9hse1csiu0l52rljicap4vsc@ds153392.
 //MongoDB schema
 Schema = new mongoose.Schema({
 	description: String,
-	due_date: String
     },{ collection: 'todo' });
 
 var Todo = mongoose.model('todo', Schema);

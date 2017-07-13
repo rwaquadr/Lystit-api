@@ -60,7 +60,7 @@ function getAll(){
 	$.get('/get-allTodos', function(data){
 		var element="";
 		for(var i = 0; i < data.length; i++){
-			element+= '<li>'+data[i].description+''+ data[i].due_date+'</li>';
+			element+= '<li>'+data[i].description+'</li>';
 		}
 		// console.log(element);
 		$('#sortable1').append(element);
@@ -79,25 +79,23 @@ $( function() {
 
 
 //new list item function
-// $('#myBtn').click(function(){
-// 	var text = $('#myInput').val();
-// 	console.log(text);
-// 	// if(text.length){
-// 	// 	$('li /' , {html: text}).appendTo('#sortable1')
-// 	// }
-// 	$('text').appendTo('li.ui-state-default');
-// 	console.log("ouch");
-// });
 $('#myBtn').click(function(){
   var text = $('#myInput').val();
   console.log(text);
   
   var li = document.createElement('li');
-  li.innerHTML = $('#myInput').val()
+  li.innerHTML = text;
  
-   $('#inProgress ul').append(li);
+   $('#inProgress ul').prepend(li);
 
 })
+
+
+// Create a "close" button and append it to each list item
+
+
+
+
 
 </script>
 
@@ -127,8 +125,8 @@ $('#myBtn').click(function(){
 					else console.log('sending to server js!');
 
           if(res){
-            console.log(res)
-            //getAll();
+            // console.log(res)
+            getAll();
           }
 				});
 	});
