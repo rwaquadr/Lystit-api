@@ -16,15 +16,6 @@ app.listen(process.env.PORT || 5000, function(err) {
   console.log(`Magic is happening on ${process.env.PORT}`)
 });
 
-// app.listen(port, function(err){
-// 	if (err) {
-//     return console.log('something bad happened', err)
-//   }
-//   console.log(`Magic is happening on ${port}`)
-// });
-
-
-
 // app.listen(port, function(err) {  
 //  if (err) {
 //    return console.log('something bad happened', err)
@@ -66,10 +57,7 @@ Todo.find({}, function(err,todo){
 
 //GET Todos from MongoDB 
 
-// app.get('/get-allTodos', function(request, response){ 
-// 	response.send(Todo);
-// 	console.log('this route is being hit',allTodos);
-// });
+
 
 app.get('/get-allTodos', function(request, response){
 console.log('this route is being hit')
