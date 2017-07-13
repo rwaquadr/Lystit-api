@@ -1,82 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Todo App</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	 <link rel="stylesheet" type="text/css" href="style.css">
-
-
-	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <title>Todo App</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+     <link rel="stylesheet" type="text/css" href="style.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	 <script type="text/javascript" scr="server.js"></script>
-
+     <script type="text/javascript" scr="server.js"></script>
 </head>
-
 <body>
-
 <nav class="navbar navbar-default">
- <div class="container-fluid">
-   <div class="navbar-header">
-     <a class="navbar-brand" href="#">LYSIT</a>
-   </div>
-     <ul class="nav navbar-nav navbar-right">
-       <li><a href="#">sign up</a></li>
-     </ul>
-   </div><!-- /.navbar-collapse -->
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">LYSIT</a>
+    </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">sign up</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
 </nav>
-
 <h1>Lystit</h1>
-
 <!-- <div id="myDIV" class="header">
   <h2>My To Do List</h2>
   <input type="text" id="myInput" placeholder="What is your task?">
   <span onclick="addTodo()" class="addBtn" id="myBtn">Add</span>
 </div> -->
-
-	<div class="fb-text form-group field-text-1499869702858"><label for="text-1499869702858" class="fb-text-label">Description<span class="fb-required">*</span>
-	</label>
-		<input type="text" placeholder="What's your task?" class="form-control" name="text-1499869702858" id="myInput" required="required" aria-required="true"></div>
-		<!-- <div class="fb-date form-group field-date-1499869665956"><label for="date-1499869665956" class="fb-date-label">Due Date</label>
-			<input type="date" class="form-control" name="date-1499869665956" id="myDate"></div><div class="fb-button form-group field-button-1499869685593"> -->
-				<button type="button" class="btn btn-success" name="button-1499869685593" style="success" id="myBtn">Save</button>
-		</div>
-
-
-
+  <!--Description text-box & save Button -->
+  <div class="fb-text form-group field-text-1499869702858"><label for="text-1499869702858" class="fb-text-label">Description<span class="fb-required">*</span>
+  </label>
+    <input type="text" placeholder="What's your task?" class="form-control" name="text-1499869702858" id="myInput" required="required" aria-required="true"></div>
+        <button type="button" class="btn btn-success" name="button-1499869685593" style="success" id="myBtn">Save</button>
+    </div>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-
-
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
+  
+//   //Load up all todos when page loads
+$.get('https://calm-ocean-58797.herokuapp.com/get-allTodos', function(data){
+	console.log(data);
+    var element="";
+    for(var i = 0; i < data.length; i++){
+      element+= '<li>'+data[i].description+'</li>';
+    }
 
-var url="https://calm-ocean-58797.herokuapp.com/"
+	console.log(element);
+    $('#sortable1').append(element);
+    console.log(element);
+  });
 
-function getAll(){	
-	$.get('/get-allTodos', function(data){
-		var element="";
-		for(var i = 0; i < data.length; i++){
-			element+= '<li>'+data[i].description+'</li>';
-		}
-		// console.log(element);
-		$('#sortable1').append(element);
-		console.log(element);
-	})
-};
+  //End Load up
 
 
 
+
+//Get all Function 
+ function getAll(){
+  console.log("WE HERE");
+  $.get('https://calm-ocean-58797.herokuapp.com/get-allTodos', function(data){
+    var element="";
+    for(var i = 0; i < data.length; i++){
+      element+= '<li>'+data[i].description+'</li>';
+    }
+
+	console.log(element);
+    $('#sortable1').prepend(element);
+    console.log(element);
+  });
+}
+
+   
+    //Ajax Send New Data to server.js + Get New Data back
+    $('#myBtn').click(function(){
+        console.log('ouch!');
+        
+        
+            var newTodo={
+                "description":$('#myInput').val()
+        // "due_date":$().val()
+            }
+            console.log('add success!');
+                $.post('https://calm-ocean-58797.herokuapp.com/post-newTodos', newTodo, function (err, res){
+                    if (err) console.log(err);
+                    else console.log('sending to server js!');
+          // if (res){
+          //   getAll();
+          // }
+                });
+    });
+    
+    //End Ajax send data to server.js
+  //Ajax Edit Data 
+  
+  //End Ajax Edit Data
 //sortable function
 $( function() {
     $( "#sortable1, #sortable2" ).sortable({
       connectWith: ".connectedSortable"
     }).disableSelection();
   } );
-
 
 //new list item function
 $('#myBtn').click(function(){
@@ -86,100 +111,23 @@ $('#myBtn').click(function(){
   var li = document.createElement('li');
   li.innerHTML = text;
  
-   $('#inProgress ul').prepend(li);
-
+   $('#inProgress ul').append(li);
 })
 
-
-// Create a "close" button and append it to each list item
-
-
-
-
-
+ 
 </script>
-
-
-
-
-
-
-<script type="text/javascript">
-	
-
-	//Ajax Send Data to server.js 
-
-	$('#myBtn').click(function(){
-		console.log('ouch!');
-		
-		
-			var newTodo={
-				"description":$('#myInput').val()
-			}
-			console.log('add success!');
-
-
-
-				$.post('/post-newTodos', newTodo, function (err, res){
-					if (err) console.log(err);
-					else console.log('sending to server js!');
-
-          if(res){
-            // console.log(res)
-            getAll();
-          }
-				});
-	});
-	
-	//End Ajax send data to server.js
-
-
-
-//sortable function
-// $( function() {
-//     $( "#sortable1, #sortable2" ).sortable({
-//       connectWith: ".connectedSortable"
-//     }).disableSelection();
-//   } );
-
-
-//new list item function
-// $('#myBtn').click(function(){
-// 	var text = $('#myInput').val();
-// 	console.log(text);
-// 	$('#sortable1').append('text');
-// 	}
-// 	console.log("ouch");
-// });
-
-
-
- </script>
-
-
-
-
-
-
 
 
 <h2>In Progress</h2>
 <div id="inProgress">
-  <ul id="sortable1" class="connectedSortable">
-    <li class="ui-state-highlight">Item 1</li>
-  </ul>
+<ul id="sortable1" class="connectedSortable">
+  <!-- <li class="ui-state-default myItem"></li> -->
+</ul>
 </div>
  
 <h2>Complete</h2>
 <ul id="sortable2" class="connectedSortable">
-  <li class="ui-state-highlight">Item 1</li>
+  <!-- <li class="ui-state-highlight">Item2</li> -->
 </ul>
-
-
-
-
-
-
-
 </body>
 </html>
