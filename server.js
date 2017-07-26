@@ -95,7 +95,7 @@ app.post('/post-newTodos', function(request, response){
 
 
  //EDIT EXISTING POST
- app.post('/edit',function(req, res){
+ app.post('/post-editTodos',function(req, res){
  	
  	// console.log(req.body); 
  	Todo.findOne(req.body,function(err,todo){
