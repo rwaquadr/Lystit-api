@@ -97,24 +97,27 @@ app.post('/post-newTodos', function(request, response){
  //EDIT EXISTING POST
  app.post('/post-editTodos',function(req, res){
  	
- 	// console.log(req.body); 
+  console.log(req.body); 
  	Todo.findOne(req.body,function(err,todo){
  		if (err){
  			console.log('ERROR', err)
  		}
- 	
- 	todo.status="Complete"
- 	todo.save(function(err,response){
- 		if (err){
- 			console.log('ERROR', err);
- 		}else{
- 			console.log('SUCCESS', todo);
- 			//response.json({"success":true});
- 				//response.send('Edit is working');
- 				res.send(todo);
- 		}
- 		
- 		})
+ 		if(todo){
+		 	todo.status="Complete"
+		 	todo.save(function(err,response){
+		 		if (err){
+		 			console.log('ERROR', err);
+		 		}else{
+		 			console.log('SUCCESS', todo);
+		 			//response.json({"success":true});
+		 				//response.send('Edit is working');
+		 				res.send(todo);
+		 		}
+		 		
+		 		})
+		}else{
+			console.log('could not find todo with that ID');
+		}
  	});
  });
 
