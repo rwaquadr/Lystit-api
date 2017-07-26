@@ -34,6 +34,8 @@ mongoose.connect('mongodb://heroku_qgcjr9k0:dk9hse1csiu0l52rljicap4vsc@ds153392.
 //MongoDB schema
 Schema = new mongoose.Schema({
 	description: String,
+	status: String,
+	name: String
     },{ collection: 'todo' });
 
 var Todo = mongoose.model('todo', Schema);
@@ -76,7 +78,7 @@ console.log('this route is being hit')
 
 //POST newTodos to MongoDB
 app.post('/post-newTodos', function(request, response){
-	console.log(request.body);
+	// console.log(request.body);
 	var todo = new Todo(request.body);
 		console.log("here!",todo);
 	
@@ -92,24 +94,30 @@ app.post('/post-newTodos', function(request, response){
 });	
 
 
-//EDIT
- app.post('/post-edit', function(request, response){
+ //EDIT EXISTING POST
+ app.post('/edit',function(req, res){
  	
- 	var requestData = request.body;
- 	console.log(request.body);
-
- 	for (var i=0; i<allTodos.length; i++){
-
- 		console.log(allTodos[i].ID);
- 		if(allTodos[i].ID==requestData.ID){
- 			console.log('breaking into if statement');
- 			allTodos[i].description = requestData.description;
- 			console.log(allTodos[i]);
- 			break;
+ 	// console.log(req.body); 
+ 	Todo.findOne(req.body,function(err,todo){
+ 		if (err){
+ 			console.log('ERROR', err)
  		}
- 	}
-
+ 	
+ 	todo.status="Complete"
+ 	todo.save(function(err,response){
+ 		if (err){
+ 			console.log('ERROR', err);
+ 		}else{
+ 			console.log('SUCCESS', todo);
+ 			//response.json({"success":true});
+ 				//response.send('Edit is working');
+ 				res.send(todo);
+ 		}
+ 		
+ 		})
+ 	});
  });
+
 
  //define folder that will be used for static assets 
 app.use(express.static('public'));
