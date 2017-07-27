@@ -122,6 +122,22 @@ app.post('/post-newTodos', function(request, response){
  });
 
 
+//DELETE A POST
+app.post('/post-deleteTodos', function(req, res){
+    res.send('delete post request works');
+    console.log(req.body);
+
+    Todo.findOne({_id:req.body._id}, function(err, todo){
+        console.log('delete todos here!');
+            if(err){console.log('error:', err);}
+            else{console.log('success:', todo);}
+
+            todo.remove(function(err){
+                if(err){console.log(err)}
+            });
+    });
+});
+
  //define folder that will be used for static assets 
 app.use(express.static('public'));
 
