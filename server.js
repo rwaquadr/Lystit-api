@@ -103,7 +103,7 @@ app.post('/post-newTodos', function(request, response){
  			console.log('ERROR', err)
  		}
  		if(todo){
-		 	todo.status="Complete"
+		 	todo.status="complete"
 		 	todo.save(function(err,response){
 		 		if (err){
 		 			console.log('ERROR', err);
